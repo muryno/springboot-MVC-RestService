@@ -3,6 +3,7 @@ package com.example.demo.controller;
 
 import com.example.demo.model.Session;
 import com.example.demo.repository.SessionRepository;
+import com.example.demo.services.SessionService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,6 +17,25 @@ import java.util.List;
 @RequestMapping("/api/v1/session/")
 public class SessionController {
 
+
+
+    SessionService sessionService;
+
+    SessionController( SessionService sessionService){
+       this.sessionService = sessionService;
+    }
+
+
+    @GetMapping
+    @RequestMapping("{id}")
+    public ResponseEntity<?> findById(@PathVariable Long id){
+        return  new ResponseEntity<>(sessionService.findSessionById(id), HttpStatus.OK);
+    }
+
+
+
+
+
     @Autowired
     public SessionRepository sessionRepository;
 
@@ -24,11 +44,6 @@ public class SessionController {
         return new ResponseEntity<> (sessionRepository.findAll(), HttpStatus.OK);
     }
 
-    @GetMapping
-    @RequestMapping("{id}")
-    public ResponseEntity<Session> findById(@PathVariable Long id){
-        return  new ResponseEntity<> (sessionRepository.getOne(id), HttpStatus.OK);
-    }
 
     @PostMapping
     @RequestMapping(value = "add")

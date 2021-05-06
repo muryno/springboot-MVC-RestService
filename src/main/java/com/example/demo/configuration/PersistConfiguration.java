@@ -15,7 +15,7 @@ public class PersistConfiguration {
         var myDataSource =  DataSourceBuilder.create();
         myDataSource.url("jdbc:postgresql://localhost:5432/conference-demo")
                 .username("postgres")
-                .password("");
+                .password("@+!Harbeola1");
         ;
 
         System.out.println("My custom data source has been created");
